@@ -9,7 +9,6 @@ Totalmanager обеспечивает возможность "прикрепля
 - добавить в файл mimeapp.list соответствующие хандлер-схемы:
 ```
     [Default Applications]
-    x-scheme-handler/tg=telegramdesktop.desktop
     x-scheme-handler/pdf=local.desktop
     x-scheme-handler/odt=local.desktop
     x-scheme-handler/ocx=local.desktop
