@@ -1,0 +1,8 @@
+#!/bin/bash
+var1=TesT
+var2=tEst
+filetype=${var1: -2}
+
+echo ${filetype,,}
+echo ${var1,,} ${var2,,}
+echo ${var1^^} ${var2^^}

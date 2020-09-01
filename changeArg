@@ -1,0 +1,17 @@
+#!/bin/bash
+arg=$*
+decoded=$(printf '%b' "${arg//%/\\x}")
+filetype=${decoded: -3}
+#echo ${arg#'pdf:'}
+#echo ${decoded:4} #Была проблема с пробелами в именах файлов/директорий. Возможно, установка пакета exo-utils и перезагрузка решила проблему
+#Ссылки в браузере должны выглядеть так pdf:/home/user/Документы/О выдаче пропуска.pdf
+#echo $PWD #Была проблема с тем, что working directory определялась как /home/user/.local/share/TelegramDesktop (почему - непонятно)
+cd
+#Две запятые нужны для преобразования PDF в pdf (case insensitive)
+if [ ${filetype,,} = "pdf" ]; then
+    xreader "${decoded:4}"
+elif [ ${filetype,,} = "odt" ] || [ ${filetype,,} = "ods" ] || [ ${filetype,,} = "ocx" ] || [ ${filetype,,} = "doc" ] || [ ${filetype,,} = "xls" ] || [ ${filetype,,} = "lsx" ]; then
+    libreoffice "${decoded:4}"
+elif [ ${filetype,,} = "jpg" ] || [ ${filetype,,} = "peg" ] || [ ${filetype,,} = "png" ] || [ ${filetype,,} = "tif" ]; then
+    xviewer "${decoded:4}"
+fi

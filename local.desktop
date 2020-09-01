@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=UniversalApp
+Name[ru]=local.desktop
+Exec=/home/vera/go/totalmanager/changeArg %u
+Terminal=false
+Type=Application
+#Этот файл нужно поместить в .local/share/applications/
+#В том же каталоге в mimeapps.list добавить x-scheme-handler/pdf=local.desktop
