@@ -149,7 +149,7 @@ func main() {
 			c.Find(bson.M{"notes.id": bson.ObjectIdHex(r.FormValue("Id"))}).Select(bson.M{"task": 1}).One(&message) //Чтобы отловить Task
 			//В Telegram API есть ограничение - нельзя сделать так <b>Текст<a href=...>Ссылка</a></b>
 			//Поэтому можно либо очистить теги ссылки https://play.golang.org/p/lwkU5jGla_Z, либо добавить закрывающий и открывающий теги </b> и <b>
-			text := toCorrectHTML("<b>" + toCorrectLink(message.Task) + "</b>\n\n" + r.FormValue("Note"))
+			text := toCorrectHTML("<b>" + toCorrectLink(message.Task) + "</b>\n" + r.FormValue("Note"))
 			newMessage := tgbotapi.NewMessage(chatId, text)
 			newMessage.ParseMode = "HTML"
 			m, err := bot.Send(newMessage)
@@ -157,7 +157,7 @@ func main() {
 				c.Update(bson.M{"notes.id": bson.ObjectIdHex(r.FormValue("Id"))}, bson.M{"$push": bson.M{"notes.$.chats": bson.M{"chatId": m.Chat.ID, "messageId": m.MessageID}}})
 			}
 		} else { //Если находим, редактируем сообщение бота
-			text := toCorrectHTML("<b>" + toCorrectLink(message.Task) + "</b>\n\n" + r.FormValue("Note"))
+			text := toCorrectHTML("<b>" + toCorrectLink(message.Task) + "</b>\n" + r.FormValue("Note"))
 			newEditMessageText := tgbotapi.NewEditMessageText(chatId, message.Messageid, text)
 			newEditMessageText.ParseMode = "HTML"
 			bot.Send(newEditMessageText)
